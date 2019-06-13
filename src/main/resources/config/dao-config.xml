@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <!-- Configuration des parametres de la BD --> 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:bd.properties"/>
+    </bean>
+
+  
+    <!-- Configuration de la couche DAO -->
+    
+    <bean id="ICategorieIndicateurDao" class="com.abouna.sante.dao.impl.CategorieIndicateurDaoImpl"/>
+    <bean id="ISousCategorieDao" class="com.abouna.sante.dao.impl.SousCategorieDaoImpl"/>
+    <bean id="ICentreDao" class="com.abouna.sante.dao.impl.CentreDaoImpl"/>
+    <bean id="ICibleDao" class="com.abouna.sante.dao.impl.CibleDaoImpl"/>
+    <bean id="IDistrictDao" class="com.abouna.sante.dao.impl.DistrictDaoImpl"/>
+    <bean id="IIndicateurDao" class="com.abouna.sante.dao.impl.IndicateurDaoImpl"/>
+    <bean id="IMoisDao" class="com.abouna.sante.dao.impl.MoisDaoImpl"/>
+    <bean id="IRealisationDao" class="com.abouna.sante.dao.impl.RealisationDaoImpl"/>
+    <bean id="ISubventionDao" class="com.abouna.sante.dao.impl.SubventionDaoImpl"/>
+    <bean id="ITrimestreDao" class="com.abouna.sante.dao.impl.TrimestreDaoImpl"/>
+    <bean id="IIndicateurCentreDao" class="com.abouna.sante.dao.impl.IndicateurCentreDao"/>
+    <bean id="IUtilisateurDao" class="com.abouna.sante.dao.impl.UtilisateurDaoImpl"/>
+    <bean id="IBonusEloignementDao" class="com.abouna.sante.dao.impl.BonusEloignementDaoImpl"/>
+    <bean id="IScoreQualiteDao" class="com.abouna.sante.dao.impl.ScoreQualiteDaoImpl"/>
+    <bean id="IAireDeSanteDao" class="com.abouna.sante.dao.impl.AireDeSanteDaoImpl"/>
+    <bean id="IFormationSanitaireDao" class="com.abouna.sante.dao.impl.FormationSanitaireDaoImpl"/>
+    <bean id="IPopulationDao" class="com.abouna.sante.dao.impl.PopulationDaoImpl"/>
+    
+    
+    
+    <!-- Configuring JPA layer -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true" />
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+                <property name="generateDdl" value="true" />
+            </bean>
+        </property>
+        <property name="loadTimeWeaver">
+            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+        </property>
+    </bean>
+
+    <!-- DBCP datasource -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${bd.url}" />
+        <property name="username" value="${bd.username}" />
+        <property name="password" value="${bd.password}" />
+        <property name="testOnBorrow" value="true" />
+    </bean>
+<!--    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.sqlite.JDBC" />
+        <property name="url" value="${bd.url}" />
+        <property name="username" value="${bd.username}" />
+        <property name="password" value="${bd.password}" />
+        <property name="testOnBorrow" value="true" />
+    </bean>-->
+
+    <!-- transaction manager -->
+    <tx:annotation-driven transaction-manager="txManager" />
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+</beans>

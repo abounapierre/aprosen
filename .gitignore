@@ -1,0 +1,14 @@
+*.class
+*~
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Directories
+target/
+lib/
+/.netbeans/
+/src/main/webapp/WEB-INF/
+src/main/webapp/VAADIN/widgetsets/
+src/main/webapp/VAADIN/gwt-unitCache

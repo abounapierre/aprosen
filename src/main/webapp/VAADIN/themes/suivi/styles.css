@@ -1,0 +1,44 @@
+@import "../runo/legacy-styles.css";
+@import "./css/bootstrap.css";
+
+.suivi{
+    background-color: skyblue;
+    background-image: none;
+}
+.suivi .page-header{
+    background-image: url("./img/sante.png");
+    background-repeat: no-repeat;
+    height: 130px;
+    margin-bottom: 10px;
+    background-position: center;
+    text-align: center;
+}
+.suivi .page-header .text-center{
+    padding-top: 95px;
+}
+
+.suivi footer{
+    margin-top: 20px;
+    font-size: small;
+    text-align: center;
+}
+
+.suivi .v-menubar-menuitem{
+    height: 28px;
+    border: none;
+    padding: 18px;
+    font-size: large;
+    padding-bottom: 30px;
+    
+}
+
+.suivi .login{
+    margin-top : 300px;
+    margin-left: 200px;
+    float: right;
+}
+
+.suivi .contenu{
+    background-image: url("./img/standard.jpg");
+    background-repeat: repeat;
+}
